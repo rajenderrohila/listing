@@ -1,0 +1,22 @@
+@import './../../variables';
+@import './../../mixins';
+.main-menu {
+    background: $primary;
+    ul {
+        text-align: right;
+        li {
+            list-style: none;
+            display: inline-block;
+            vertical-align: middle;
+            a {
+                display: block;
+                padding: 20px 30px;
+                color: $white;
+                &:hover {
+                    color: $white;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

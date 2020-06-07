@@ -1,0 +1,348 @@
+// Toggles
+//
+// Used in conjunction with global variables to enable certain theme features.
+
+// Vendor
+
+@mixin align-center {
+  display: flex;
+  align-items: center
+}
+
+@mixin align-center-right {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
+
+@mixin align-center-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@mixin flexbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@mixin verticalCenter {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@mixin menu-bottom-line($height, $background) {
+  &:hover {
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.active {
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &::after {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    position: absolute;
+    content: '';
+    height: $height;
+    width: 0;
+    background: $background;
+    @include transition (all, 0.5s, ease);
+  }
+}
+
+@mixin transition($what: all, $time: 0.2s, $how: ease-in-out) {
+  -webkit-transition: $what $time $how;
+  -moz-transition: $what $time $how;
+  -ms-transition: $what $time $how;
+  -o-transition: $what $time $how;
+  transition: $what $time $how;
+}
+
+@mixin badge($width,$height,$color) {
+  width: $width;
+  height: $height;
+  background: $color;
+  border-radius: 50%;
+  line-height: $height;
+  display: inline-block;
+  font-size: $width/2;
+  color: #000;
+
+  @if $color == primary {
+    background: $primary;
+    color: $white;
+  }
+
+  @else if $color == secondary {
+    background: #ffffff;
+    color: $dark;
+  }
+}
+
+@mixin body-container ($margin) {
+  @if $margin == up {
+    .heading {
+      h2 {
+        color: $white
+      }
+    }
+  }
+  @else {
+    .heading {
+      h2 {
+        color: $dark
+      }
+    }
+  }
+}
+
+@mixin tabs ($style,$background) {
+  @if $style == box {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: inline-block;
+    background: $background;
+    border-radius: 5px;
+    overflow: hidden;
+
+    .tab-items {
+      display: inline-block;
+
+      a {
+        padding: 4px 45px;
+        display: block;
+        color: $dark;
+        position: relative;
+        text-transform: capitalize;
+        font-size: $primary-size;
+        font-weight: 700;
+        @include transition (all, 0.5s, ease);
+
+        &:hover {
+          background: $light-theme;
+          @include transition (all, 0.5s, ease);
+          // color: $primary;
+        }
+
+        &.active-link {
+          background: $light-theme;
+          @include transition (all, 0.5s, ease);
+          // color: lighten($color: $primary, $amount: 2%);
+        }
+
+        &.active-link-administrator {
+          background: lighten($color: $primary, $amount: 40%);
+          @include transition (all, 0.5s, ease);
+          color: lighten($color: $primary, $amount: 2%);
+        }
+
+        .text {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  @if $style == fill {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    background: $background;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100%;
+
+    .tab-items {
+      display: inline-block;
+      flex: 1 1 auto;
+
+      a {
+        font-weight: 400;
+        padding: 10px 25px;
+        display: block;
+        color: $dark;
+        position: relative;
+        font-size: $primary-size;
+        @include transition (all, 0.5s, ease);
+
+        &:hover {
+          @include transition (all, 0.5s, ease);
+        }
+      }
+    }
+  }
+
+  @else if $style == line {
+    border-bottom: 1px solid lighten($color: $dark, $amount: 95%);
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+    background: $background;
+    border-radius: 0;
+
+    .tab-items {
+      a {
+        padding: $primary-space - 5px;
+        font-size: $primary-size;
+        @include menu-bottom-line(2px,$primary);
+
+        &:hover {
+          background: none;
+        }
+      }
+    }
+  }
+}
+
+@mixin alert ($alertStyle) {
+  position: relative;
+  padding: 3px 8px;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 30px;
+
+  @if $alertStyle == danger {
+    color: $danger;
+    background-color: rgba(255,77,99,0.1);
+  }
+
+  @else if $alertStyle == primary {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
+  }
+  @else if $alertStyle == secondary {
+    color: #383d41;
+    background-color: #e2e3e5;
+    border-color: #d6d8db;
+  }
+  @else if $alertStyle == success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+  @else if $alertStyle == warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+  }
+  @else if $alertStyle == info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+  }
+  @else if $alertStyle == light {
+    color: #818182;
+    background-color: #fefefe;
+    border-color: #fdfdfe;
+  }
+  @else if $alertStyle == dark {
+    color: #1b1e21;
+    background-color: #d6d8d9;
+    border-color: #c6c8ca;
+  }
+}
+
+
+@mixin fonts($size, $height, $weight){
+  font-size: $size;
+  line-height: $height;
+  font-weight: $weight;
+}
+
+@mixin borderRadius($direction: all, $radius: 4px){
+  @if $direction == topLeft {
+      border-top-left-radius: $radius;
+      -webkit-border-top-left-radius: $radius;
+      -moz-border-top-left-radius: $radius;
+  } @else if $direction == topRight {
+      border-top-right-radius: $radius;
+      -webkit-border-top-right-radius: $radius;
+      -moz-border-top-right-radius: $radius;
+  } @else if $direction == bottomLeft {
+      border-bottom-left-radius: $radius;
+      -webkit-border-bottom-left-radius: $radius;
+      -moz-border-bottom-left-radius: $radius;
+  } @else if $direction == bottomRight {
+      border-bottom-right-radius: $radius;
+      -webkit-border-bottom-right-radius: $radius;
+      -moz-border-bottom-right-radius: $radius;
+  } @else if $direction == all {
+      border-radius: $radius;
+      -webkit-border-radius: $radius;
+      -moz-border-radius: $radius;
+  }
+}
+
+@mixin boxShadow($left:left, $right:right, $spread:spread, $blur:blur, $color:rgba(0, 0, 0, 0.05)) {
+    box-shadow: $left $right $spread $blur $color;
+    -webkit-box-shadow: $left $right $spread $blur $color;
+    -moz-box-shadow: $left $right $spread $blur $color;
+}
+
+@mixin border($direction: all, $width: 1px, $type: solid, $color: $black){
+  @if $direction == top{
+      border-top: $width $type $color;
+      -webkit-border-top: $width $type $color;
+      -moz-border-top: $width $type $color;
+  } @else if $direction == bottom{
+      border-bottom: $width $type $color;
+      -webkit-border-bottom: $width $type $color;
+      -moz-border-bottom: $width $type $color;
+  } @else if $direction == left{
+      border-left: $width $type $color;
+      -webkit-border-left: $width $type $color;
+      -moz-border-left: $width $type $color;
+  } @else if $direction == right{
+      border-right: $width $type $color;
+      -webkit-border-right: $width $type $color;
+      -moz-border-right: $width $type $color;
+  } @else if $direction == all{
+      border: $width $type $color;
+      -webkit-border: $width $type $color;
+      -moz-border: $width $type $color;
+  }
+}
+
+
+
+
+@mixin breakpoint($breakpoint) {
+  @if $breakpoint == phone {
+      @media (max-width: $phone) { @content; }
+  }
+  @else if $breakpoint == phone-landscape {
+      @media (max-width: $phone-landscape) { @content; }
+  }
+  @else if $breakpoint == tablet {
+      @media (max-width: $tablet) { @content; }
+  }
+  @else if $breakpoint == laptopview{
+      @media (max-width: $laptopview) { @content; }
+  }
+  @else if $breakpoint == laptop {
+      @media (max-width: $laptop) { @content; }
+  }
+  @else if $breakpoint == dekstop {
+      @media (max-width: $dekstop) { @content; }
+  }
+  @else if $breakpoint == large {
+      @media (max-width: $large) { @content; }
+  } 
+}
